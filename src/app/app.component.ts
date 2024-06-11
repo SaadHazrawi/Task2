@@ -9,11 +9,11 @@ import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
   styleUrls: ['./app.component.css'],
 })
 export class AppComponent implements OnInit {
+  public newBooks: string[]=[];
   constructor(private bookservice: BookService) { }
-  public books$!: string[];
+  public books$: string[]=[];
   @ViewChild('mySelect') mySelect!: NgSelectComponent;
   @ViewChild('myHeader')  myHeader!: HTMLElement;
- 
   public showHandle = false;
   private _pageNumber = 1;
   ngOnInit(): void {
@@ -22,7 +22,8 @@ export class AppComponent implements OnInit {
   private loadData(pageNumber = this._pageNumber) {
     this.bookservice.getBook(pageNumber).subscribe({
       next: (book) => {
-        this.books$ = book.docs.map((book) => book.title);
+          this.newBooks = book.docs.map((book) => book.title);
+          this.books$=[...this.books$,...this.newBooks];
       },
       error: (err) => {
         console.log(err);
@@ -30,10 +31,9 @@ export class AppComponent implements OnInit {
     });
   }
   onScrollToEnd() {
-
     this._pageNumber += 1;
-
     this.loadData(this._pageNumber);
+    console.log(this.books$.length)
   }
   refreshNgSelect() {
     this.mySelect.detectChanges();
@@ -49,9 +49,6 @@ export class AppComponent implements OnInit {
     moveItemInArray(this._listbooks$, event.previousIndex, event.currentIndex);
   }
   delete(book: string, index: number): void {
-    console.log(book);
-    console.log("----------------------------------------------------------------");
-    console.log(index);
-    this._listbooks$.splice(index, 1); // Remove one element at the specified index
+    this._listbooks$.splice(index, 1);
   }
 }

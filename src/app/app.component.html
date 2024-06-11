@@ -1,34 +1,48 @@
-<div class="d-flex justify-content-center align-items-center">
-  <div>
-    <ng-select #mySelect (scrollToEnd)="onScrollToEnd()" bindLabel="title" [hideSelected]="true" [multiple]="false"
-      [clearable]="true" [clearSearchOnAdd]="true" (change)="onMaterialGroupChange($event)">
-      <ng-option disabled>Select Book</ng-option>
-      <ng-option *ngFor="let book of books$;let $index=index" [value]="book">
-        {{book}}
-      </ng-option>
-    </ng-select>
-    <div class="handle" [hidden]="!showHandle"></div>
-  </div>
-  <div>
-    <div cdkDropList class="example-list" (cdkDropListDropped)="drop($event)">
-      <div class="example-box" *ngFor="let book of _listbooks$; let index = index" cdkDrag>
-        {{ book }}
-        <i class="fa-solid fa-delete-left deleteitem" (click)="delete(book, index)"></i>
+<!-- <div class="d-flex bd-highlight flex-wrap"> -->
+  <div class="parenit container my-2">
+    <!-- <div class="p-2 flex-fill bd-highlight"> -->
+    <div class="child">
+      <ng-select #mySelect (scrollToEnd)="onScrollToEnd()" bindLabel="title" [hideSelected]="true" [multiple]="false"
+        [clearable]="true" [clearSearchOnAdd]="true" (change)="onMaterialGroupChange($event)">
+        <ng-option disabled>Select Book</ng-option>
+        <ng-option *ngFor="let book of books$;let $index=index" [value]="book">
+          {{book}}
+        </ng-option>
+      </ng-select>
+      <div class="handle" [hidden]="!showHandle"></div>
+    </div>
+    <!-- <div class="p-2 flex-fill bd-highlight">
+      -->
+    <div class="child">
+      <h4>Selected Books</h4>
+      <div cdkDropList class="example-list w-100" (cdkDropListDropped)="drop($event)">
+        <div class="example-box" style="max-width: 90%;" *ngFor="let book of _listbooks$; let index = index" cdkDrag>
+          {{ book }}
+          <i class="fa-solid fa-delete-left deleteitem" (click)="delete(book, index)"></i>
+        </div>
+      </div>
+    </div>
+  
+    <!-- <div class="p-2 flex-fill bd-highlight" -->
+  
+    <div class="child">
+      <h4>List preview</h4>
+  
+      <div #myHeader style=" 
+      border: 1px solid;
+   padding: 10px;
+   border-radius: 15px;">
+  
+        <p class="text_in_lastbox">Lorem ipsum dolor sit amet consectetur, adipisicing elit. Incidunt, nisi?</p>
+        <p *ngFor="let x of _listbooks$" class="newBookChoise">
+          {{x}}
+        </p>
+        <button (click)="myHeader.style.background=' rgb(11, 228, 156)'"
+          style="background-color: rgb(11, 228, 156); border-radius: 50%; padding: 5px;"></button>
+        <button (click)="myHeader.style.background=' rgb(43, 155, 230)'"
+          style="background-color: rgb(43, 155, 230); border-radius: 50%; padding: 5px;"></button>
+        <button (click)="myHeader.style.background='rgb(106, 79, 243)'"
+          style="background-color: rgb(106, 79, 243); border-radius: 50%; padding: 5px;"></button>
       </div>
     </div>
   </div>
-
-  <div #myHeader style=" 
-     border: 1px solid;
-  padding: 10px;">
-    <p *ngFor="let x of _listbooks$" class="newBookChoise">
-      {{x}}
-    </p>
-    <button (click)="myHeader.style.background=' rgb(11, 228, 156)'"
-      style="background-color: rgb(11, 228, 156); border-radius: 50%; padding: 5px;"></button>
-    <button (click)="myHeader.style.background=' rgb(43, 155, 230)'"
-      style="background-color: rgb(43, 155, 230); border-radius: 50%; padding: 5px;"></button>
-    <button (click)="myHeader.style.background='rgb(106, 79, 243)'"
-      style="background-color: rgb(106, 79, 243); border-radius: 50%; padding: 5px;"></button>
-  </div>
-</div>
