@@ -6,6 +6,7 @@ import { AppComponent } from './app.component';
 import { NgSelectModule } from '@ng-select/ng-select';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { DragDropModule } from '@angular/cdk/drag-drop';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 @NgModule({
   declarations: [
     AppComponent
@@ -15,7 +16,8 @@ import { DragDropModule } from '@angular/cdk/drag-drop';
     HttpClientModule,
     NgSelectModule,
     FormsModule, ReactiveFormsModule,
-    DragDropModule
+    DragDropModule,
+    MatProgressSpinnerModule
     
   
   ],

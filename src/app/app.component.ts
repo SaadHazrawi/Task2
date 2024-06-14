@@ -9,27 +9,44 @@ import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
   styleUrls: ['./app.component.css'],
 })
 export class AppComponent implements OnInit {
-  public newBooks: string[]=[];
+  public newBooks: string[] = [];
   constructor(private bookservice: BookService) { }
-  public books$: string[]=[];
+  public books$: string[] = [];
   @ViewChild('mySelect') mySelect!: NgSelectComponent;
-  @ViewChild('myHeader')  myHeader!: HTMLElement;
+  @ViewChild('myHeader') myHeader!: HTMLElement;
   public showHandle = false;
   private _pageNumber = 1;
   ngOnInit(): void {
     this.loadData();
   }
+  public isDone: boolean = false;
+  public isOpen: boolean = false;
+
+  closeMenu() {
+    this.isOpen = false;
+  }
+  openMenu() {
+    this.isOpen = true;
+  }
+
   private loadData(pageNumber = this._pageNumber) {
+    this.isDone = true;
+
     this.bookservice.getBook(pageNumber).subscribe({
       next: (book) => {
-          this.newBooks = book.docs.map((book) => book.title);
-          this.books$=[...this.books$,...this.newBooks];
+        this.newBooks = book.docs.map((book) => book.title);
+        this.books$ = [...this.books$, ...this.newBooks];
       },
       error: (err) => {
         console.log(err);
       },
+      complete: () => {
+        console.log(this.books$.length);
+        this.isDone = false;
+      }
     });
   }
+
   onScrollToEnd() {
     this._pageNumber += 1;
     this.loadData(this._pageNumber);
@@ -51,4 +68,5 @@ export class AppComponent implements OnInit {
   delete(book: string, index: number): void {
     this._listbooks$.splice(index, 1);
   }
+
 }

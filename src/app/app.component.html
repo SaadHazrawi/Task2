@@ -1,9 +1,19 @@
-<!-- <div class="d-flex bd-highlight flex-wrap"> -->
+<div style="position: relative;">
+  <div *ngIf="isDone && isOpen" style="transform: translate(20%, 100%);
+    position: absolute;
+    top: 50%;
+    right: 50%;
+   z-index: 2;">
+    <button class="btn btn-primary" type="button" disabled>
+      <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+      <span class="sr-only">Loading...</span>
+    </button>
+  </div>
   <div class="parenit container my-2">
-    <!-- <div class="p-2 flex-fill bd-highlight"> -->
     <div class="child">
-      <ng-select #mySelect (scrollToEnd)="onScrollToEnd()" bindLabel="title" [hideSelected]="true" [multiple]="false"
-        [clearable]="true" [clearSearchOnAdd]="true" (change)="onMaterialGroupChange($event)">
+      <ng-select (open)="openMenu()" (close)="closeMenu()" #mySelect (scrollToEnd)="onScrollToEnd()" bindLabel="title"
+        [hideSelected]="true" [multiple]="false" [clearable]="true" [clearSearchOnAdd]="true"
+        (change)="onMaterialGroupChange($event)">
         <ng-option disabled>Select Book</ng-option>
         <ng-option *ngFor="let book of books$;let $index=index" [value]="book">
           {{book}}
@@ -11,8 +21,6 @@
       </ng-select>
       <div class="handle" [hidden]="!showHandle"></div>
     </div>
-    <!-- <div class="p-2 flex-fill bd-highlight">
-      -->
     <div class="child">
       <h4>Selected Books</h4>
       <div cdkDropList class="example-list w-100" (cdkDropListDropped)="drop($event)">
@@ -22,17 +30,13 @@
         </div>
       </div>
     </div>
-  
-    <!-- <div class="p-2 flex-fill bd-highlight" -->
-  
     <div class="child">
       <h4>List preview</h4>
-  
       <div #myHeader style=" 
       border: 1px solid;
    padding: 10px;
    border-radius: 15px;">
-  
+
         <p class="text_in_lastbox">Lorem ipsum dolor sit amet consectetur, adipisicing elit. Incidunt, nisi?</p>
         <p *ngFor="let x of _listbooks$" class="newBookChoise">
           {{x}}
@@ -46,3 +50,4 @@
       </div>
     </div>
   </div>
+</div>
